@@ -1,10 +1,14 @@
 package com.jyujyu.review.api;
 
 import com.jyujyu.review.api.request.CreateAndEditRestaurantRequest;
+import com.jyujyu.review.api.response.RestaurantDetailVO;
+import com.jyujyu.review.api.response.RestaurantVO;
 import com.jyujyu.review.model.RestaurantEntity;
 import com.jyujyu.review.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -12,15 +16,15 @@ public class RestaurantApi {
     private final RestaurantService restaurantService;
 
     @GetMapping("/restaurants")
-    public String getRestaurants(){
-        return "1";
+    public List<RestaurantVO> getRestaurants(){
+        return restaurantService.getRestaurants();
     }
 
     @GetMapping("/restaurant/{restaurantId}")
-    public String getRestaurantDetail(
+    public RestaurantDetailVO getRestaurantDetail(
             @PathVariable(name = "restaurantId") Long restaurantId
     ){
-        return "2";
+        return restaurantService.getRestaurantDetail(restaurantId);
     }
 
     @PostMapping("/restaurant")
